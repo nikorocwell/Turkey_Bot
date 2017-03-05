@@ -1,5 +1,5 @@
 /**
- * Product collection
+ * Order collection
  */
 
 const mongoose = require('mongoose')
@@ -14,6 +14,7 @@ var orderSchema = new Schema({
     clientinfo: {
         id: String,
         phone: String,
+        email: String,
         fio: String
     },
     status: {
@@ -22,9 +23,24 @@ var orderSchema = new Schema({
     },
     date: Date,
     totalprice: Number,
+    totalamount: Number,
+    paymentmethod: String,
+    isactive: {
+        type: Boolean,
+        default: true
+    },
     isdeleted: {
         type: Boolean,
         default: false
+    },
+    delivery: String,
+    deliverycost: {
+        type: Number,
+        default: 0
+    },
+    tax: {
+        type: Number,
+        default: 0
     },
     location: String,
     products: [],
@@ -59,7 +75,35 @@ orderSchema.statics.findByClientId = function (id, fields, cb) {
         fields = '';
     }
 
-    return this.findOne({ "clientinfo.id" : id }, fields, function (err, order) {
+    return this.findOne({ "clientinfo.id" : id, "status" : "UNCONFIRMED_NEW", "isactive" : true, "isdeleted" : false}, fields, function (err, order) {
+        if (err) cb(err);
+        else if (!order) cb(new Error('Order is not found!'));
+        else cb(null, order);
+    });
+};
+
+orderSchema.statics.findOnConfirmation = function (id, fields, cb) {
+    if (id == null || id == undefined) throw new SyntaxError('Not specified client id order');
+    else if (typeof fields === 'function') {
+        cb = fields;
+        fields = '';
+    }
+
+    return this.findOne({ "clientinfo.id" : id, "status" : "ON_CONFIRMATION", "isactive" : true, "isdeleted" : false}, fields, function (err, order) {
+        if (err) cb(err);
+        else if (!order) cb(new Error('Order is not found!'));
+        else cb(null, order);
+    });
+};
+
+orderSchema.statics.findConfirmedAndPayed = function (id, fields, cb) {
+    if (id == null || id == undefined) throw new SyntaxError('Not specified client id order');
+    else if (typeof fields === 'function') {
+        cb = fields;
+        fields = '';
+    }
+
+    return this.findOne({ "clientinfo.id" : id, "status" : "CONFIRMED_PAYED", "isactive" : true, "isdeleted" : false}, fields, function (err, order) {
         if (err) cb(err);
         else if (!order) cb(new Error('Order is not found!'));
         else cb(null, order);
@@ -73,18 +117,6 @@ orderSchema.statics.findAll = function (cb) {
         else cb(null, orders);
     });
 };
-
-// productprotoSchema.virtual('catOptions').get(function() {
-// 	var result = {};
-// 	if (this.categories) {
-// 		for (var i = 0; i < this.categories.length; i++) {
-// 			if (this.categories[i].isactive) {
-// 				result[this.categories[i].name] = this.categories[i].id;
-// 			}
-// 		}
-// 	}
-// 	return result;
-// });
 
 /**
  * Static method for adding session

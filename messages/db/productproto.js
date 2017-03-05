@@ -1,5 +1,5 @@
 /**
- * Product Prototype Collection (from which we take product params)
+ * Product Prototype Collection (from which we take product parameters)
  */
 
 const mongoose = require('mongoose')
@@ -20,7 +20,11 @@ var productprotoSchema = new Schema({
     type: String,
 	isactive: Boolean,
 	price: Number,
-	categories: [{
+	qtymax: {
+        type: Number,
+        default: 1
+    },
+	forms: [{
 		isactive: Boolean,
 		id: String,
 		name: String,
@@ -60,18 +64,6 @@ productprotoSchema.statics.findAll = function (cb) {
         else cb(null, prototypes);
     });
 };
-
-// productprotoSchema.virtual('catOptions').get(function() {
-// 	var result = {};
-// 	if (this.categories) {
-// 		for (var i = 0; i < this.categories.length; i++) {
-// 			if (this.categories[i].isactive) {
-// 				result[this.categories[i].name] = this.categories[i].id;
-// 			}
-// 		}
-// 	}
-// 	return result;
-// });
 
 /**
  * Static method for adding session

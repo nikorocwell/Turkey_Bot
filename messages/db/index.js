@@ -7,6 +7,7 @@ require('./users');
 require('./schedule');
 require('./session');
 require('./productproto');
+require('./locations');
 require('./product');
 require('./order');
 

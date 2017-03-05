@@ -25,13 +25,19 @@ var productSchema = new Schema({
         default: 'N/A'
     },
     clientid: String,
-    category: String,
-    type: String,
+    groupid: String,
+    typeid: String,
     status: {
         date: Date,
         status: String
     },
 	price: Number,
+    subtotal: Number,
+    qty: Number,
+    form: {
+        type: String,
+        default: 'N/A'
+    },
 	size: {
 		weightmax: Number,
 		weightmin: Number
@@ -73,6 +79,14 @@ productSchema.statics.findAll = function (cb) {
 
 productSchema.statics.findAllByIds = function (ids, cb) {
     return this.find({ id: { $in: ids } }, function (err, products) {
+        if (err) cb(err);
+        else if (!products) cb(new Error('Products not found!'));
+        else cb(null, products);
+    });
+};
+
+productSchema.statics.findAllByOrderId = function (orderid, cb) {
+    return this.find({ orderid: { $in: orderid } }, function (err, products) {
         if (err) cb(err);
         else if (!products) cb(new Error('Products not found!'));
         else cb(null, products);
