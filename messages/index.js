@@ -561,7 +561,7 @@ Protos.add({
         },
         {
             isactive: true,
-            id: 'twenty01',
+            id: 'twenty022',
             name: 'Перепелиные Десяток',
             weightmax: 60,
             weightmin: 60
