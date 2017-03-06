@@ -11,10 +11,10 @@ const needle = require("needle"),
     Products = require('mongoose').model('Products'),
     Orders = require('mongoose').model('Orders'),
     Locations = require('mongoose').model('Locations'),
-    yandexMoney = require('./yandexMoney'),
     config  = require('./config'),
     bodyParser = require('body-parser'),
     nodemailer = require('nodemailer');
+    //yandexMoney = require('./yandexMoney'),
 
 //create application/json parser
 var jsonParser = bodyParser.json();
