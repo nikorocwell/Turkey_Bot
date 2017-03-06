@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "botbuilder": "^3.7.0",
-    "botbuilder-azure": "1.1.0",
+    "botbuilder-azure": "3.0.2",
     "azure-storage":"^2.1.0",
     "needle": "^1.5.0",
     "mongodb": "^2.2.24",
