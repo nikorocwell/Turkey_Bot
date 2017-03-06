@@ -773,10 +773,10 @@ bot.dialog('/', [
     },
     function (session) {
         session.beginDialog('/clientdata');
-    },
-    function (session) {
-        session.endDialog();
     }
+    // function (session) {
+    //     session.endDialog();
+    // }
 ]);//CORE
 bot.dialog('/client/check', [
     function (session) {
@@ -864,10 +864,10 @@ bot.dialog('/order', [
     },
     function (session) {
         session.beginDialog('/order/comment');
-    },
-    function (session) {
-        session.endDialogWithResult();
     }
+    // function (session) {
+    //     session.endDialogWithResult();
+    // }
 ]);//ORDER
 bot.dialog('/order/type', [
     function (session) {
@@ -1010,8 +1010,8 @@ bot.dialog('/order/comment', [
         if (results.response.entity == 'Да') {
             next();
         } else {
-            session.endDialogWithResult();
-            // session.beginDialog();
+            //session.endDialogWithResult();
+            session.beginDialog('/clientdata/phone');
         }
     },
     function (session) {
@@ -1019,7 +1019,8 @@ bot.dialog('/order/comment', [
     },
     function (session, results) {
         session.userData.comment = results.response;
-        session.endDialogWithResult();
+        session.beginDialog('/clientdata/phone');
+        //session.endDialogWithResult();
     }
 ]);//ORDER COMMENT
 bot.dialog('/clientdata', [
