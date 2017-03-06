@@ -103,565 +103,565 @@ var ClientCellPhone;
 var addId = null;
 var defcur = ' руб.';
 
-// Locations.add({
-//     id: 'LOC05',
-//     description: 'Одинцово Говорова 103',
-//     openhours: {
-//         from: 10,
-//         to: 20
-//     },
-//     address: 'ул. Говорова, 103, Одинцово, Московская обл., Россия, 143005',
-//     geometry: {
-//         lat: '55.6918228',
-//         lng: '37.2982976'
-//     },
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: null
-//     }
-// }, function (err, proto) {
-//
-// });
-//
-// Locations.add({
-//     id: 'LOC04',
-//     description: 'Новокуркинское 31',
-//     openhours: {
-//         from: 10,
-//         to: 20
-//     },
-//     address: 'Новокуркинское ш., 31, Москва, Россия, 125466',
-//     geometry: {
-//         lat: '55.900599',
-//         lng: '37.3963388'
-//     },
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: null
-//     }
-// }, function (err, proto) {
-//
-// });
-//
-// Locations.add({
-//     id: 'LOC03',
-//     description: 'Свободный пр., 9к4',
-//     openhours: {
-//         from: 10,
-//         to: 20
-//     },
-//     address: 'Свободный пр., 9к4, Москва, Россия, 111555',
-//     geometry: {
-//         lat: '55.763663',
-//         lng: '37.82291'
-//     },
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: null
-//     }
-// }, function (err, proto) {
-//
-// });
-//
-// Locations.add({
-//     id: 'LOC02',
-//     description: 'ул. Литвина-Седого, 3',
-//     openhours: {
-//         from: 10,
-//         to: 20
-//     },
-//     address: 'ул. Литвина-Седого, 3, Москва, Россия, 123317',
-//     geometry: {
-//         lat: '55.761245',
-//         lng: '37.54251199999999'
-//     },
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: null
-//     }
-// }, function (err, proto) {
-//
-// });
-//
-// Locations.add({
-//     id: 'LOC01',
-//     description: 'Мамоново',
-//     openhours: {
-//         from: 10,
-//         to: 20
-//     },
-//     address: 'Мамоново, Рязанская обл., Россия, 391155',
-//     geometry: {
-//         lat: '53.9960386',
-//         lng: '39.5764539'
-//     },
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: null
-//     }
-// }, function (err, proto) {
-//
-// });
-//
-// Protos.add({
-//     id: 'CHEESE01',
-//     description: 'Сыры',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'diary',
-//     type: 'cheese',
-//     isactive: true,
-//     price: 450,
-//     forms: [
-//         {
-//             isactive: true,
-//             id: 'cheese011',
-//             name: 'Сыр Адыгейский 300 гр.',
-//             weightmax: 0.3,
-//             weightmin: 0.3
-//         },
-//         {
-//             isactive: false,
-//             id: 'cheese012',
-//             name: 'Сыр Козий 300 гр.',
-//             weightmax: 0.3,
-//             weightmin: 0.3
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://vita-fattoria.ru/wp-content/uploads/2015/07/%D0%A4%D0%B5%D1%80%D0%BC%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%B5-%D0%BC%D0%BE%D0%BB%D0%BE%D1%87%D0%BD%D1%8B%D0%B5-%D0%BF%D1%80%D0%BE%D0%B4%D1%83%D0%BA%D1%82%D1%8B-%D1%81%D1%8B%D1%80-2.jpg'
-//     },
-//     promt: 'Выберите размер упаковки!'
-// }, function (err, proto) {
-//
-// });
-//
-// Protos.add({
-//     id: 'YOGURT01',
-//     description: 'Йогурт',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'diary',
-//     type: 'yogurt',
-//     isactive: true,
-//     price: 1,
-//     forms: [
-//         {
-//             isactive: true,
-//             id: 'yog200',
-//             name: 'Бутылка 0.5 л.',
-//             weightmax: 80,
-//             weightmin: 80
-//         },
-//         {
-//             isactive: true,
-//             id: 'yog440',
-//             name: 'Бутылка 0.275 л.',
-//             weightmax: 45,
-//             weightmin: 45
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://eda-iz-derevni.ru/upload/iblock/0eb/0ebe0bf2a8caf668b1cf45c2edb9a3c7.jpg'
-//     },
-//     promt: 'Выберите размер упаковки!'
-// }, function (err, proto) {
-//
-// });
-//
-// Protos.add({
-//     id: 'COTTAGECHEESE01',
-//     description: 'Творог',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'diary',
-//     type: 'cottagecheese',
-//     isactive: true,
-//     price: 350,
-//     forms: [
-//         {
-//             isactive: false,
-//             id: 'CC200',
-//             name: 'Упаковка 200 гр.',
-//             weightmax: 0.2,
-//             weightmin: 0.2
-//         },
-//         {
-//             isactive: false,
-//             id: 'CC440',
-//             name: 'Упаковка 440 гр.',
-//             weightmax: 0.44,
-//             weightmin: 0.44
-//         },
-//         {
-//             isactive: true,
-//             id: 'CC440',
-//             name: 'Упаковка 0.5 кг.',
-//             weightmax: 0.5,
-//             weightmin: 0.5
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://eda-iz-derevni.ru/upload/iblock/16d/16d9b96fe80dfd78bafa08c13f19f604.jpg'
-//     },
-//     promt: 'Выберите размер упаковки!'
-// }, function (err, proto) {
-//
-// });
-//
-// Protos.add({
-//     id: 'CREAMS01',
-//     description: 'Сметана',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'diary',
-//     type: 'cream',
-//     isactive: true,
-//     price: 350,
-//     forms: [
-//         {
-//             isactive: true,
-//             id: 'creampack200',
-//             name: 'Упаковка 200 гр.',
-//             weightmax: 0.2,
-//             weightmin: 0.2
-//         },
-//         {
-//             isactive: true,
-//             id: 'creampack440',
-//             name: 'Упаковка 440 гр.',
-//             weightmax: 0.44,
-//             weightmin: 0.44
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://eda-iz-derevni.ru/upload/iblock/cfe/cfe5bd53a9c61d1214843cb9dd068568.jpg'
-//     },
-//     promt: 'Выберите размер упаковки!'
-// }, function (err, proto) {
-//
-// });
-//
-// Protos.add({
-//     id: 'MILKS01',
-//     description: 'Молоко',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'diary',
-//     type: 'milk',
-//     isactive: true,
-//     price: 80,
-//     forms: [
-//         {
-//             isactive: true,
-//             id: 'milkbot1',
-//             name: 'Бутылка 1 литр',
-//             weightmax: 1,
-//             weightmin: 1
-//         },
-//         {
-//             isactive: true,
-//             id: 'milkbot15',
-//             name: 'Бутылка 1.5 литр',
-//             weightmax: 1.5,
-//             weightmin: 1.5
-//         },
-//         {
-//             isactive: true,
-//             id: 'milkbot3',
-//             name: 'Бутылка 3 литр',
-//             weightmax: 3,
-//             weightmin: 3
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://eda-iz-derevni.ru/upload/iblock/1be/1be2ff3743d9d43f220ea0d422b4f911.jpg'
-//     },
-//     promt: 'Выберите объем бутылки!'
-// }, function (err, proto) {
-//
-// });
-//
-// Protos.add({
-//     id: 'OILS01',
-//     description: 'Растительные масла',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'oils',
-//     type: 'oils',
-//     isactive: true,
-//     price: 1,
-//     forms: [{
-//             isactive: true,
-//             id: 'grechichnoeoil',
-//             name: 'Гречичное 0.5 л.',
-//             weightmax: 130,
-//             weightmin: 130
-//         },
-//         {
-//             isactive: true,
-//             id: 'sunfloweroil',
-//             name: 'Подсолнечное 0.5 л.',
-//             weightmax: 90,
-//             weightmin: 90
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://greenfood66.ru/sites/default/files/ufiles/oil-chose.jpg'
-//     },
-//     promt: 'Выберите размер пакета!'
-// }, function (err, proto) {
-//
-// });
-//
-// Protos.add({
-//     id: 'POTATO01',
-//     description: 'Картофель',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'potato',
-//     type: 'potato',
-//     isactive: true,
-//     price: 120,
-//     forms: [{
-//             isactive: true,
-//             id: 'pot2kilobag',
-//             name: 'Пакет 2 кг.',
-//             weightmax: 1,
-//             weightmin: 1
-//         },
-//         {
-//             isactive: false,
-//             id: 'Пакет 5 кг',
-//             name: '600 гр.',
-//             weightmax: 2.5,
-//             weightmin: 2.5
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://ya39.ru/upload/resize_cache/bataline.ads/5f1/445_330_1/5f19f17175ab5c198998d4a41a20e8a5.jpg'
-//     },
-//     promt: 'Выберите размер пакета!'
-// }, function (err, proto) {
-//
-// });
-//
-//
-//
-// Protos.add({
-//     id: 'CHICKEN01',
-//     description: 'Бройлерные цыплята',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'chicken',
-//     type: 'broiler',
-//     isactive: true,
-//     price: 330,
-//     forms: [{
-//             isactive: true,
-//             id: 'broiler1kg',
-//             name: 'до 1 кг.',
-//             weightmax: 1,
-//             weightmin: 1
-//         },
-//         {
-//             isactive: true,
-//             id: 'broiler25kg',
-//             name: 'до 2.5 кг',
-//             weightmax: 2.5,
-//             weightmin: 2.5
-//         },
-//         {
-//             isactive: true,
-//             id: 'broiler35kg',
-//             name: 'до 3.5 кг',
-//             weightmax: 3.5,
-//             weightmin: 3.5
-//         },
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://skid.by/images/products/produkty-pitaniya/myaso-ptica-subprodukty-yayca/tushka-cyplyat-broylerov-zam-1-kg_main_usy1k2.jpg'
-//     },
-//     promt: 'Выберите вес тушки цыпленка!'
-// }, function (err, proto) {
-//
-// });
-//
-//
-// Protos.add({
-//     id: 'EGGS01',
-//     description: 'Яйца',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'eggs',
-//     type: 'egg',
-//     isactive: true,
-//     price: 1,
-//     qtymax: 10,
-//     forms: [{
-//             isactive: true,
-//             id: 'chickten01',
-//             name: 'Куриные Десяток',
-//             weightmax: 130,
-//             weightmin: 130
-//         },
-//         {
-//             isactive: true,
-//             id: 'twenty01',
-//             name: 'Перепелиные Десяток',
-//             weightmax: 60,
-//             weightmin: 60
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://kurskaya-oblast.doski.ru/i/67/89/678900.jpg'
-//     },
-//     promt: 'Выберите количество яиц!'
-// }, function (err, proto) {
-//
-// });
-//
-// Protos.add({
-//     id: 'T001',
-//     description: 'Тушка Индейки',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'birdmeat',
-//     type: 'turkey',
-//     isactive: false,
-//     price: 450,
-//     forms: [{
-//             isactive: true,
-//             id: 'big01',
-//             name: 'Большая',
-//             weightmax: 9,
-//             weightmin: 7
-//         },
-//         {
-//             isactive: true,
-//             id: 'med02',
-//             name: 'Средняя',
-//             weightmax: 7,
-//             weightmin: 5
-//         },
-//         {
-//             isactive: true,
-//             id: 'sma03',
-//             name: 'Маленькая',
-//             weightmax: 5,
-//             weightmin: 3
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://images.aif.ru/008/183/8f0224384272a0c44fa9ae9036d15ea8.jpg'
-//     },
-//     promt: 'Выберите размер индейки!'
-// }, function (err, proto) {
-//
-// });
-//
-// Protos.add({
-//     id: 'G001',
-//     description: 'Тушка Гуся',
-//     owner: {
-//         id: 'FARM01',
-//         name: 'Индеец Гусев'
-//     },
-//     category: 'birdmeat',
-//     type: 'goose',
-//     isactive: false,
-//     price: 650,
-//     forms: [{
-//             isactive: true,
-//             id: 'big01',
-//             name: 'Большая',
-//             weightmax: 7,
-//             weightmin: 6
-//         },
-//         {
-//             isactive: true,
-//             id: 'med02',
-//             name: 'Средняя',
-//             weightmax: 5,
-//             weightmin: 4
-//         },
-//         {
-//             isactive: true,
-//             id: 'sma03',
-//             name: 'Маленькая',
-//             weightmax: 3,
-//             weightmin: 2
-//         }
-//     ],
-//     expperiod: 14,
-//     picture: {
-//         contentType: 'image/jpeg',
-//         contentUrl: 'http://www.nexplorer.ru/load/Image/1213/gus_z_5.jpg'
-//     },
-//     promt: 'Выберите размер гуся!'
-// }, function (err, proto) {
-//
-// });//CREATE PROTOS
+Locations.add({
+    id: 'LOC05',
+    description: 'Одинцово Говорова 103',
+    openhours: {
+        from: 10,
+        to: 20
+    },
+    address: 'ул. Говорова, 103, Одинцово, Московская обл., Россия, 143005',
+    geometry: {
+        lat: '55.6918228',
+        lng: '37.2982976'
+    },
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: null
+    }
+}, function (err, proto) {
+
+});
+
+Locations.add({
+    id: 'LOC04',
+    description: 'Новокуркинское 31',
+    openhours: {
+        from: 10,
+        to: 20
+    },
+    address: 'Новокуркинское ш., 31, Москва, Россия, 125466',
+    geometry: {
+        lat: '55.900599',
+        lng: '37.3963388'
+    },
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: null
+    }
+}, function (err, proto) {
+
+});
+
+Locations.add({
+    id: 'LOC03',
+    description: 'Свободный пр., 9к4',
+    openhours: {
+        from: 10,
+        to: 20
+    },
+    address: 'Свободный пр., 9к4, Москва, Россия, 111555',
+    geometry: {
+        lat: '55.763663',
+        lng: '37.82291'
+    },
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: null
+    }
+}, function (err, proto) {
+
+});
+
+Locations.add({
+    id: 'LOC02',
+    description: 'ул. Литвина-Седого, 3',
+    openhours: {
+        from: 10,
+        to: 20
+    },
+    address: 'ул. Литвина-Седого, 3, Москва, Россия, 123317',
+    geometry: {
+        lat: '55.761245',
+        lng: '37.54251199999999'
+    },
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: null
+    }
+}, function (err, proto) {
+
+});
+
+Locations.add({
+    id: 'LOC01',
+    description: 'Мамоново',
+    openhours: {
+        from: 10,
+        to: 20
+    },
+    address: 'Мамоново, Рязанская обл., Россия, 391155',
+    geometry: {
+        lat: '53.9960386',
+        lng: '39.5764539'
+    },
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: null
+    }
+}, function (err, proto) {
+
+});
+
+Protos.add({
+    id: 'CHEESE01',
+    description: 'Сыры',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'diary',
+    type: 'cheese',
+    isactive: true,
+    price: 450,
+    forms: [
+        {
+            isactive: true,
+            id: 'cheese011',
+            name: 'Сыр Адыгейский 300 гр.',
+            weightmax: 0.3,
+            weightmin: 0.3
+        },
+        {
+            isactive: false,
+            id: 'cheese012',
+            name: 'Сыр Козий 300 гр.',
+            weightmax: 0.3,
+            weightmin: 0.3
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://vita-fattoria.ru/wp-content/uploads/2015/07/%D0%A4%D0%B5%D1%80%D0%BC%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%B5-%D0%BC%D0%BE%D0%BB%D0%BE%D1%87%D0%BD%D1%8B%D0%B5-%D0%BF%D1%80%D0%BE%D0%B4%D1%83%D0%BA%D1%82%D1%8B-%D1%81%D1%8B%D1%80-2.jpg'
+    },
+    promt: 'Выберите размер упаковки!'
+}, function (err, proto) {
+
+});
+
+Protos.add({
+    id: 'YOGURT01',
+    description: 'Йогурт',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'diary',
+    type: 'yogurt',
+    isactive: true,
+    price: 1,
+    forms: [
+        {
+            isactive: true,
+            id: 'yog200',
+            name: 'Бутылка 0.5 л.',
+            weightmax: 80,
+            weightmin: 80
+        },
+        {
+            isactive: true,
+            id: 'yog440',
+            name: 'Бутылка 0.275 л.',
+            weightmax: 45,
+            weightmin: 45
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://eda-iz-derevni.ru/upload/iblock/0eb/0ebe0bf2a8caf668b1cf45c2edb9a3c7.jpg'
+    },
+    promt: 'Выберите размер упаковки!'
+}, function (err, proto) {
+
+});
+
+Protos.add({
+    id: 'COTTAGECHEESE01',
+    description: 'Творог',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'diary',
+    type: 'cottagecheese',
+    isactive: true,
+    price: 350,
+    forms: [
+        {
+            isactive: false,
+            id: 'CC200',
+            name: 'Упаковка 200 гр.',
+            weightmax: 0.2,
+            weightmin: 0.2
+        },
+        {
+            isactive: false,
+            id: 'CC440',
+            name: 'Упаковка 440 гр.',
+            weightmax: 0.44,
+            weightmin: 0.44
+        },
+        {
+            isactive: true,
+            id: 'CC440',
+            name: 'Упаковка 0.5 кг.',
+            weightmax: 0.5,
+            weightmin: 0.5
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://eda-iz-derevni.ru/upload/iblock/16d/16d9b96fe80dfd78bafa08c13f19f604.jpg'
+    },
+    promt: 'Выберите размер упаковки!'
+}, function (err, proto) {
+
+});
+
+Protos.add({
+    id: 'CREAMS01',
+    description: 'Сметана',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'diary',
+    type: 'cream',
+    isactive: true,
+    price: 350,
+    forms: [
+        {
+            isactive: true,
+            id: 'creampack200',
+            name: 'Упаковка 200 гр.',
+            weightmax: 0.2,
+            weightmin: 0.2
+        },
+        {
+            isactive: true,
+            id: 'creampack440',
+            name: 'Упаковка 440 гр.',
+            weightmax: 0.44,
+            weightmin: 0.44
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://eda-iz-derevni.ru/upload/iblock/cfe/cfe5bd53a9c61d1214843cb9dd068568.jpg'
+    },
+    promt: 'Выберите размер упаковки!'
+}, function (err, proto) {
+
+});
+
+Protos.add({
+    id: 'MILKS01',
+    description: 'Молоко',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'diary',
+    type: 'milk',
+    isactive: true,
+    price: 80,
+    forms: [
+        {
+            isactive: true,
+            id: 'milkbot1',
+            name: 'Бутылка 1 литр',
+            weightmax: 1,
+            weightmin: 1
+        },
+        {
+            isactive: true,
+            id: 'milkbot15',
+            name: 'Бутылка 1.5 литр',
+            weightmax: 1.5,
+            weightmin: 1.5
+        },
+        {
+            isactive: true,
+            id: 'milkbot3',
+            name: 'Бутылка 3 литр',
+            weightmax: 3,
+            weightmin: 3
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://eda-iz-derevni.ru/upload/iblock/1be/1be2ff3743d9d43f220ea0d422b4f911.jpg'
+    },
+    promt: 'Выберите объем бутылки!'
+}, function (err, proto) {
+
+});
+
+Protos.add({
+    id: 'OILS01',
+    description: 'Растительные масла',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'oils',
+    type: 'oils',
+    isactive: true,
+    price: 1,
+    forms: [{
+            isactive: true,
+            id: 'grechichnoeoil',
+            name: 'Гречичное 0.5 л.',
+            weightmax: 130,
+            weightmin: 130
+        },
+        {
+            isactive: true,
+            id: 'sunfloweroil',
+            name: 'Подсолнечное 0.5 л.',
+            weightmax: 90,
+            weightmin: 90
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://greenfood66.ru/sites/default/files/ufiles/oil-chose.jpg'
+    },
+    promt: 'Выберите размер пакета!'
+}, function (err, proto) {
+
+});
+
+Protos.add({
+    id: 'POTATO01',
+    description: 'Картофель',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'potato',
+    type: 'potato',
+    isactive: true,
+    price: 120,
+    forms: [{
+            isactive: true,
+            id: 'pot2kilobag',
+            name: 'Пакет 2 кг.',
+            weightmax: 1,
+            weightmin: 1
+        },
+        {
+            isactive: false,
+            id: 'Пакет 5 кг',
+            name: '600 гр.',
+            weightmax: 2.5,
+            weightmin: 2.5
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://ya39.ru/upload/resize_cache/bataline.ads/5f1/445_330_1/5f19f17175ab5c198998d4a41a20e8a5.jpg'
+    },
+    promt: 'Выберите размер пакета!'
+}, function (err, proto) {
+
+});
+
+
+
+Protos.add({
+    id: 'CHICKEN01',
+    description: 'Бройлерные цыплята',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'chicken',
+    type: 'broiler',
+    isactive: true,
+    price: 330,
+    forms: [{
+            isactive: true,
+            id: 'broiler1kg',
+            name: 'до 1 кг.',
+            weightmax: 1,
+            weightmin: 1
+        },
+        {
+            isactive: true,
+            id: 'broiler25kg',
+            name: 'до 2.5 кг',
+            weightmax: 2.5,
+            weightmin: 2.5
+        },
+        {
+            isactive: true,
+            id: 'broiler35kg',
+            name: 'до 3.5 кг',
+            weightmax: 3.5,
+            weightmin: 3.5
+        },
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://skid.by/images/products/produkty-pitaniya/myaso-ptica-subprodukty-yayca/tushka-cyplyat-broylerov-zam-1-kg_main_usy1k2.jpg'
+    },
+    promt: 'Выберите вес тушки цыпленка!'
+}, function (err, proto) {
+
+});
+
+
+Protos.add({
+    id: 'EGGS01',
+    description: 'Яйца',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'eggs',
+    type: 'egg',
+    isactive: true,
+    price: 1,
+    qtymax: 10,
+    forms: [{
+            isactive: true,
+            id: 'chickten01',
+            name: 'Куриные Десяток',
+            weightmax: 130,
+            weightmin: 130
+        },
+        {
+            isactive: true,
+            id: 'twenty01',
+            name: 'Перепелиные Десяток',
+            weightmax: 60,
+            weightmin: 60
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://kurskaya-oblast.doski.ru/i/67/89/678900.jpg'
+    },
+    promt: 'Выберите количество яиц!'
+}, function (err, proto) {
+
+});
+
+Protos.add({
+    id: 'T001',
+    description: 'Тушка Индейки',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'birdmeat',
+    type: 'turkey',
+    isactive: false,
+    price: 450,
+    forms: [{
+            isactive: true,
+            id: 'big01',
+            name: 'Большая',
+            weightmax: 9,
+            weightmin: 7
+        },
+        {
+            isactive: true,
+            id: 'med02',
+            name: 'Средняя',
+            weightmax: 7,
+            weightmin: 5
+        },
+        {
+            isactive: true,
+            id: 'sma03',
+            name: 'Маленькая',
+            weightmax: 5,
+            weightmin: 3
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://images.aif.ru/008/183/8f0224384272a0c44fa9ae9036d15ea8.jpg'
+    },
+    promt: 'Выберите размер индейки!'
+}, function (err, proto) {
+
+});
+
+Protos.add({
+    id: 'G001',
+    description: 'Тушка Гуся',
+    owner: {
+        id: 'FARM01',
+        name: 'Индеец Гусев'
+    },
+    category: 'birdmeat',
+    type: 'goose',
+    isactive: false,
+    price: 650,
+    forms: [{
+            isactive: true,
+            id: 'big01',
+            name: 'Большая',
+            weightmax: 7,
+            weightmin: 6
+        },
+        {
+            isactive: true,
+            id: 'med02',
+            name: 'Средняя',
+            weightmax: 5,
+            weightmin: 4
+        },
+        {
+            isactive: true,
+            id: 'sma03',
+            name: 'Маленькая',
+            weightmax: 3,
+            weightmin: 2
+        }
+    ],
+    expperiod: 14,
+    picture: {
+        contentType: 'image/jpeg',
+        contentUrl: 'http://www.nexplorer.ru/load/Image/1213/gus_z_5.jpg'
+    },
+    promt: 'Выберите размер гуся!'
+}, function (err, proto) {
+
+});//CREATE PROTOS
 
 /**
  * YaMoney auth GET middleware

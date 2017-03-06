@@ -1,27 +1,28 @@
 {
 	"yandexAPI": {
-		"clientId": "84CE18A4250A404649DF2966E2ADED6F92E233504E93BB6134CFA19267AD11DE",
-        "clientSecret" : "91EEE5CC6877F14EC9DF09B7D8707D6001E09F7ACEA89BD2C03B3C28F8262F2E286A6F4962527F1BBBCFF29DE147B49DD0D96725C942C84EC8E9143A9B531621",
+		"clientId": "5A293727CE1557D6AFDDC151C8355C11FDA0526F925A77315170160CD01BE31A",
+        "clientSecret" : "8DF622C2218A1B9CE5A9CF22C3161288F7F00F5B4CBC42519C8A18FB489FE2CB401C316945E9A7E725875008EACC52A339ECDC5FC4026D3750FED06E2DCA5133",
 		"scope": ["account-info","operation-history","operation-details","incoming-transfers","payment-p2p","payment-shop"], 
 		"response_type": "code",
-		"redirectURI": "http://localhost:3978/api/yandex"
+		"redirectURI": "http://rsbot.azurewebsites.net/api/yandex",
+		"redirectURI_local": "http://localhost:3978/api/yandex"
 	},
 	"telegramAPI": {
 		"token": "give token BotFather"
 	},
-	"db_local": {
-		"url": "mongodb://localhost:27017/turkey_db",
-		"options": {
-			"user": "turkey_test",
-			"pass": "gobaby123"
-		}
-	},
 	"db": {
-		"url": "mongodb://rega:fvVIoXATwamyHNFwqy33SLROxF7aNLy2QxQwz164V0k8j0jj94ERhXquWUUn8tm2jguTa28UaDsfLAKM2BHygA==@rega.documents.azure.com:10250/turkey_db?ssl=true",
+		"url": "mongodb://rega:fvVIoXATwamyHNFwqy33SLROxF7aNLy2QxQwz164V0k8j0jj94ERhXquWUUn8tm2jguTa28UaDsfLAKM2BHygA==@rega.documents.azure.com:10250/regabot?ssl=true",
 		"options": {
 			"user": "rega",
 			"pass": "fvVIoXATwamyHNFwqy33SLROxF7aNLy2QxQwz164V0k8j0jj94ERhXquWUUn8tm2jguTa28UaDsfLAKM2BHygA==",
 			"SSL":true
+		}
+	},
+	"db_local": {
+		"url": "mongodb://localhost:27017/regabot",
+		"options": {
+			"user": "bot",
+			"pass": "bot1201"
 		}
 	},
 	"azure_storage": {
