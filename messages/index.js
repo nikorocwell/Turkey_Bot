@@ -1011,6 +1011,7 @@ bot.dialog('/order/comment', [
             next();
         } else {
             session.endDialogWithResult();
+            // session.beginDialog();
         }
     },
     function (session) {
