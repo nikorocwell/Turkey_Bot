@@ -1010,7 +1010,7 @@ bot.dialog('/order/comment', [
         if (results.response.entity == 'Да') {
             next();
         } else {
-            session.endDialog();
+            session.endDialogWithResult();
         }
     },
     function (session) {
