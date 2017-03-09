@@ -22,7 +22,7 @@ var jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
-var useEmulator = false;// (process.env.NODE_ENV = 'development');
+var useEmulator = true;// (process.env.NODE_ENV = 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
@@ -1003,16 +1003,13 @@ bot.dialog('/order/comment', [
     function (session) {
         builder.Prompts.choice(session, 'Есть ли у вас вопросы или комментарии к заказу.', ['Да', 'Нет'])
     },
-    function (session, results, next) {
+    function (session, results) {
         if (results.response.entity == 'Да') {
-            next();
+            builder.Prompts.text(session, 'Напишите ваши пожелания по заказу.');
         } else {
             //session.endDialogWithResult();
             session.beginDialog('/clientdata');
         }
-    },
-    function (session) {
-        builder.Prompts.text(session, 'Напишите ваши пожелания по заказу.')
     },
     function (session, results) {
         session.userData.comment = results.response;
@@ -1025,9 +1022,9 @@ bot.dialog('/clientdata', [
         if (session.userData.phone == null || session.userData.changephone.entity == 'Исправить!') {
             session.beginDialog('/clientdata/phone');
         } else {
-            next();
+            session.beginDialog('/clientdata/email');
         }
-    },
+    }
     // function (session) {
     //     session.beginDialog('/clientdata/phone');
     // },
@@ -1725,8 +1722,8 @@ function creteOrderMail(session, order, cb) {
             return;
         }
         // Compile a function // ПРОВЕРКА
-        var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
-        //var fn = jade.compileFile('./orderemail.jade');
+        //var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
+        var fn = jade.compileFile('./orderemail.jade');
 
 
         // Render the function
