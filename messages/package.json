@@ -23,6 +23,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Nikita_Sevriugin",
+  "author": "",
   "license": "ISC"
 }

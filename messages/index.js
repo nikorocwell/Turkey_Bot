@@ -96,10 +96,8 @@ var bot = new builder.UniversalBot(connector, {
         defaultLocale: "ru"
     }
 });
-var phonelem;
 var orderid;
 var storageid = 'N/A';
-var ClientCellPhone;
 var addId = null;
 var defcur = ' руб.';
 
@@ -818,7 +816,8 @@ bot.dialog('/client/add', [
                                 }
                                 else {
                                     session.send("Отлично! Вы авторизованы! Запомните свой пароль. Он потребуется вам для подтверждения получения заказа");
-                                    session.endDialogWithResult();
+                                    session.beginDialog('/client/check');
+                                    //session.endDialogWithResult();
                                 }
                             });
                         }
@@ -863,11 +862,8 @@ bot.dialog('/order', [
         session.beginDialog('/order/type');
     },
     function (session) {
-        session.beginDialog('/order/comment');
+        session.endDialogWithResult();
     }
-    // function (session) {
-    //     session.endDialogWithResult();
-    // }
 ]);//ORDER
 bot.dialog('/order/type', [
     function (session) {
@@ -939,7 +935,8 @@ bot.dialog('/order/size/qty', [
     function (session, results) {
         if (session.userData.prototype.qtymax >= results.response) {
             session.userData.prodqty = results.response;
-            session.endDialogWithResult();
+            session.beginDialog('/order/add');
+            //session.endDialogWithResult();
         } else {
             session.beginDialog('/order/size/qty');
         }
@@ -997,8 +994,8 @@ bot.dialog('/order/add', [
         if (results.response.entity == 'Да') {
             session.beginDialog('/order/type');
         } else {
-            console.log(session.userData.prodqty + 'отказ от перехода на выбор группы продуктов');
-            session.endDialogWithResult();
+            session.beginDialog('/order/comment');
+            //session.endDialogWithResult();
         }
     }
 ]);//ADD PRODUCT TO ORDER
@@ -1011,7 +1008,7 @@ bot.dialog('/order/comment', [
             next();
         } else {
             //session.endDialogWithResult();
-            session.beginDialog('/clientdata/phone');
+            session.beginDialog('/clientdata');
         }
     },
     function (session) {
@@ -1019,7 +1016,7 @@ bot.dialog('/order/comment', [
     },
     function (session, results) {
         session.userData.comment = results.response;
-        session.beginDialog('/clientdata/phone');
+        session.beginDialog('/clientdata');
         //session.endDialogWithResult();
     }
 ]);//ORDER COMMENT
@@ -1034,21 +1031,21 @@ bot.dialog('/clientdata', [
     // function (session) {
     //     session.beginDialog('/clientdata/phone');
     // },
-    function (session) {
-        session.beginDialog('/clientdata/email');
-    },
-    function (session) {
-        session.beginDialog('/clientdata/delivery');
-    },
-    function (session) {
-        session.beginDialog('/order/confirmation');
-    },
-    function (session) {
-        session.beginDialog('/clientdata/payment');
-    },
-    function (session) {
-        session.endDialogWithResult();
-    }
+    // function (session) {
+    //     session.beginDialog('/clientdata/email');
+    // },
+    // function (session) {
+    //     session.beginDialog('/clientdata/delivery');
+    // },
+    // function (session) {
+    //     session.beginDialog('/order/confirmation');
+    // },
+    // function (session) {
+    //     session.beginDialog('/clientdata/payment');
+    // },
+    // function (session) {
+    //     session.endDialogWithResult();
+    // }
 ]);//CLIENTDATA MAIN
 bot.dialog('/clientdata/phone', [
     function (session) {
@@ -1056,24 +1053,25 @@ bot.dialog('/clientdata/phone', [
     },
     function (session, results) {
         session.userData.phone = results.response;
-        phonelem = session.userData.phone.split('');
-        if (phonelem.length > 10) {
+        session.userData.phonelem = session.userData.phone.split('');
+        if (session.userData.phonelem.length > 10) {
             session.send("Номер слишком длинный! Введите коректный номер.");
             session.beginDialog('/clientdata/phone');
-        } else if (phonelem.length < 10) {
+        } else if (session.userData.phonelem.length < 10) {
             session.send("Номер слишком короткий! Введите коректный номер.");
             session.beginDialog('/clientdata/phone');
         } else {
-            session.userData.correctPhone = phonelem[0] + phonelem[1] + phonelem[2] + "-" + phonelem[3] + phonelem[4] + phonelem[5] + phonelem[6] + phonelem[7] + phonelem[8] + phonelem[9];
+            session.userData.correctPhone = session.userData.phonelem[0] + session.userData.phonelem[1] + session.userData.phonelem[2] + "-" + session.userData.phonelem[3] + session.userData.phonelem[4] + session.userData.phonelem[5] + session.userData.phonelem[6] + session.userData.phonelem[7] + session.userData.phonelem[8] + session.userData.phonelem[9];
             builder.Prompts.choice(session, "Проверьте номер телефона клиента: " + "+7" + session.userData.correctPhone, ["Верно!", "Исправить!"]);
         }
     },
     function (session, results) {
         session.userData.changephone = results.response;
         if (session.userData.changephone.entity == 'Исправить!') {
-            session.beginDialog('/clientdata');
+            session.beginDialog('/clientdata/phone');
         } else {
-            session.endDialogWithResult(results);
+            session.beginDialog('/clientdata/email');
+            //session.endDialogWithResult(results);
         }
     }
 ]);//CLIENT PHONE NUMBER
@@ -1097,7 +1095,8 @@ bot.dialog('/clientdata/email', [
         if (session.userData.clientmail == null) {
             builder.Prompts.text(session, 'Напишите адрес вашей электронной почты.');
         } else {
-            session.endDialogWithResult();
+            session.beginDialog('/clientdata/delivery');
+            //session.endDialogWithResult();
         }
     },
     // function (session) {
@@ -1105,7 +1104,8 @@ bot.dialog('/clientdata/email', [
     // },
     function (session, results) {
         session.userData.clientmail = results.response;
-        session.endDialogWithResult();
+        session.beginDialog('/clientdata/delivery');
+        //session.endDialogWithResult();
     }
 ]);//ORDER COMMENT
 
@@ -1120,9 +1120,6 @@ bot.dialog('/clientdata/delivery', [
         } else {
             session.beginDialog('/clientdata/delivery/custom');
         }
-    },
-    function (session) {
-        session.endDialogWithResult();
     }
 ]);//LOCATION CHOICE
 
@@ -1194,7 +1191,8 @@ bot.dialog('/clientdata/delivery/custom', [
             session.beginDialog('/clientdata/delivery/custom');
         } else {
             session.userData.delivery = 'Доставка по адресу';
-            session.endDialogWithResult(results);
+            session.beginDialog('/order/confirmation');
+            //session.endDialogWithResult(results);
         }
     }
 ]);//CUSTOM LOCATION DELIVERY
@@ -1219,7 +1217,8 @@ bot.dialog('/clientdata/delivery/shop', [
             session.userData.formattedloc = results.response.entity;
             session.userData.delcost = 0;
             session.userData.delivery = 'Самовывоз';
-            session.endDialogWithResult(results);
+            session.beginDialog('/order/confirmation');
+            //session.endDialogWithResult(results);
         }
     }
     // function (session) {
