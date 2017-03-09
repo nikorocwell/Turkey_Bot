@@ -1661,7 +1661,7 @@ function createOrderPreview(session, order, cb) {
                 builder.Fact.create(session, session.userData.formattedloc, 'Адрес:')
             ])
             .items(items)
-            .total(order.totalprice + defcur);
+            .total(order.totalamount + defcur)
         cb(null, card);
     });
 }
