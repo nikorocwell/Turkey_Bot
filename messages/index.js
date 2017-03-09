@@ -22,7 +22,7 @@ var jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
-var useEmulator = true;// (process.env.NODE_ENV = 'development');
+var useEmulator = false;// (process.env.NODE_ENV = 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
@@ -1658,7 +1658,7 @@ function createOrderPreview(session, order, cb) {
                 builder.Fact.create(session, session.userData.formattedloc, 'Адрес:')
             ])
             .items(items)
-            .total(order.totalamount + defcur)
+            .total(order.totalamount + defcur);
         cb(null, card);
     });
 }
@@ -1702,8 +1702,8 @@ function createOrderCard(session, order, cb) {
         var card =  new builder.ReceiptCard(session)
             .title(order.clientinfo.id)
             .facts([
-                builder.Fact.create(session, order.id, 'Номер Заказа:'),
-                builder.Fact.create(session, order.location, 'Адрес доставки:'),
+                builder.Fact.create(session, order.id, 'Номер Заказа'),
+                builder.Fact.create(session, order.location, 'Адрес доставки'),
             ])
             .items(items)
             .total(order.totalamount + defcur)
@@ -1722,8 +1722,8 @@ function creteOrderMail(session, order, cb) {
             return;
         }
         // Compile a function // ПРОВЕРКА
-        //var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
-        var fn = jade.compileFile('./orderemail.jade');
+        var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
+        //var fn = jade.compileFile('./orderemail.jade');
 
 
         // Render the function
