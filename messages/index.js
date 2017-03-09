@@ -940,7 +940,7 @@ bot.dialog('/order/size', [
 ]);//SIZE
 bot.dialog('/order/size/qty', [
     function (session) {
-        builder.Prompts.number(session, 'Введите количество упаковок от 1 до ' + session.userData.prototype.qtymax);
+        builder.Prompts.number(session, 'Укажите количество товара в заказе от 1 до ' + session.userData.prototype.qtymax);
     },
     function (session, results) {
         if (session.userData.prototype.qtymax >= results.response) {
