@@ -1725,7 +1725,7 @@ function creteOrderMail(session, order, cb) {
             return;
         }
         // Compile a function
-        var fn = jade.compileFile('./orderemail.jade');
+        var fn = jade.compileFile('./orderemail');
 
         // Render the function
         var html = fn({order:order , products:products});
