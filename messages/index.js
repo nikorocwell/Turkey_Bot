@@ -103,7 +103,7 @@ var defcur = ' руб.';
 
 // Locations.add({
 //     id: 'LOC05',
-//     description: 'Одинцово Говорова 103',
+//     description: '5',
 //     openhours: {
 //         from: 10,
 //         to: 20
@@ -127,7 +127,7 @@ var defcur = ' руб.';
 //
 // Locations.add({
 //     id: 'LOC04',
-//     description: 'Новокуркинское 31',
+//     description: '4',
 //     openhours: {
 //         from: 10,
 //         to: 20
@@ -151,7 +151,7 @@ var defcur = ' руб.';
 //
 // Locations.add({
 //     id: 'LOC03',
-//     description: 'Свободный пр., 9к4',
+//     description: '3',
 //     openhours: {
 //         from: 10,
 //         to: 20
@@ -175,7 +175,7 @@ var defcur = ' руб.';
 //
 // Locations.add({
 //     id: 'LOC02',
-//     description: 'ул. Литвина-Седого, 3',
+//     description: '2',
 //     openhours: {
 //         from: 10,
 //         to: 20
@@ -199,7 +199,7 @@ var defcur = ' руб.';
 //
 // Locations.add({
 //     id: 'LOC01',
-//     description: 'Мамоново',
+//     description: '1',
 //     openhours: {
 //         from: 10,
 //         to: 20
@@ -1208,9 +1208,13 @@ bot.dialog('/clientdata/delivery/shop', [
     function (session) {
         Locations.findAll(function (err, locations) {
             if (!err) {
-                var options = [];
+                var options = []
+                session.userData.optlocs = [];
                 for (var i = 0; i < locations.length; i++) {
-                    options.push(locations[i].address);
+                    var a = i + 1;
+                    session.send(locations[i].description + ': ' + locations[i].address);
+                    options.push(locations[i].description);
+                    session.userData.optlocs.push(locations[i].address);
                 }
                 options.push('Хочу доставку на дом');//НАДО СДЕЛАТЬ ВОЗВРАТ!!!
                 builder.Prompts.choice(session, 'Выберите адрес самовывоза', options);
@@ -1221,7 +1225,9 @@ bot.dialog('/clientdata/delivery/shop', [
         if (results.response.entity == 'Хочу доставку на дом') {
             session.beginDialog('/clientdata/delivery/custom');
         } else {
-            session.userData.formattedloc = results.response.entity;
+            session.userData.formattedloc = session.userData.optlocs[results.response.index];
+            console.log(session.userData.formattedloc);
+            //session.userData.formattedloc = results.response.entity;
             session.userData.delcost = 0;
             session.userData.delivery = 'Самовывоз';
             session.beginDialog('/order/confirmation');
