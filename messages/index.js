@@ -232,6 +232,7 @@ var defcur = ' руб.';
 //     type: 'cheese',
 //     isactive: true,
 //     price: 450,
+//     qtymax: 20,
 //     forms: [
 //         {
 //             isactive: true,
@@ -269,6 +270,7 @@ var defcur = ' руб.';
 //     type: 'yogurt',
 //     isactive: true,
 //     price: 1,
+//     qtymax: 30,
 //     forms: [
 //         {
 //             isactive: true,
@@ -306,6 +308,7 @@ var defcur = ' руб.';
 //     type: 'cottagecheese',
 //     isactive: true,
 //     price: 350,
+//     qtymax: 10,
 //     forms: [
 //         {
 //             isactive: false,
@@ -350,6 +353,7 @@ var defcur = ' руб.';
 //     type: 'cream',
 //     isactive: true,
 //     price: 350,
+//     qtymax: 10,
 //     forms: [
 //         {
 //             isactive: true,
@@ -387,6 +391,7 @@ var defcur = ' руб.';
 //     type: 'milk',
 //     isactive: true,
 //     price: 80,
+//     qtymax: 10,
 //     forms: [
 //         {
 //             isactive: true,
@@ -431,6 +436,7 @@ var defcur = ' руб.';
 //     type: 'oils',
 //     isactive: true,
 //     price: 1,
+//     qtymax: 10,
 //     forms: [{
 //             isactive: true,
 //             id: 'grechichnoeoil',
@@ -467,6 +473,7 @@ var defcur = ' руб.';
 //     type: 'potato',
 //     isactive: true,
 //     price: 120,
+//     qtymax: 10,
 //     forms: [{
 //             isactive: true,
 //             id: 'pot2kilobag',
@@ -505,6 +512,7 @@ var defcur = ' руб.';
 //     type: 'broiler',
 //     isactive: true,
 //     price: 330,
+//     qtymax: 10,
 //     forms: [{
 //             isactive: true,
 //             id: 'broiler1kg',
@@ -586,6 +594,7 @@ var defcur = ' руб.';
 //     type: 'turkey',
 //     isactive: false,
 //     price: 450,
+//     qtymax: 10,
 //     forms: [{
 //             isactive: true,
 //             id: 'big01',
@@ -629,6 +638,7 @@ var defcur = ' руб.';
 //     type: 'goose',
 //     isactive: false,
 //     price: 650,
+//     qtymax: 10,
 //     forms: [{
 //             isactive: true,
 //             id: 'big01',
@@ -1197,7 +1207,7 @@ bot.dialog('/clientdata/delivery/custom', [
 bot.dialog('/clientdata/delivery/shop', [
     function (session) {
         Locations.findAll(function (err, locations) {
-            if (!err && locations) {
+            if (!err) {
                 var options = [];
                 for (var i = 0; i < locations.length; i++) {
                     options.push(locations[i].address);
