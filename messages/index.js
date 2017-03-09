@@ -22,7 +22,7 @@ var jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
-var useEmulator = false;// (process.env.NODE_ENV = 'development');
+var useEmulator = true;// (process.env.NODE_ENV = 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
@@ -1018,7 +1018,7 @@ bot.dialog('/order/comment', [
     }
 ]);//ORDER COMMENT
 bot.dialog('/clientdata', [
-    function (session, results, next) {
+    function (session) {
         if (session.userData.phone == null || session.userData.changephone.entity == 'Исправить!') {
             session.beginDialog('/clientdata/phone');
         } else {
@@ -1469,7 +1469,7 @@ bot.dialog('/success/arrived', [
                             console.log('ORDER CLOSED. Status updated for: ' + order.id);
                             session.send('Огромное спасибо за подтверждение! Ваш заказ №: ' + order.id + ' закрыт. Наслаждайтесь нашей продукцией)');
                             //builder.Prompts.choice(session, 'Что бы вы хотели сделать? =)', ['Заказать еще!', 'Посмотреть историю заказов']);
-                            session.beginDialog('/');
+                            session.endConversation();
                         });
                     } else {
                         session.send('Нет активных заказов');
@@ -1512,7 +1512,7 @@ bot.dialog('/refuse', [
                 session.send('Нет активных заказов');
             }
         });
-        session.beginDialog('/');
+        session.endConversation();
     }
 ]);//REFUSE
 
@@ -1722,8 +1722,8 @@ function creteOrderMail(session, order, cb) {
             return;
         }
         // Compile a function // ПРОВЕРКА
-        var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
-        //var fn = jade.compileFile('./orderemail.jade');
+        //var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
+        var fn = jade.compileFile('./orderemail.jade');
 
 
         // Render the function
