@@ -1724,7 +1724,7 @@ function creteOrderMail(session, order, cb) {
             cb(err, null);
             return;
         }
-        // Compile a function
+        // Compile a function // ПРОВЕРКА
         var fn = jade.compileFile('D:\messages\orderemail.jade');
         //var fn = jade.compileFile('./orderemail.jade');
 
