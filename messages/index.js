@@ -1369,20 +1369,30 @@ bot.dialog('/success', [
 bot.dialog('/success/arrived', [
     function (session, results, next) {
         var date = new Date();
-        console.log(date.toLocaleString()); //показывает дату и время в числовом варианте
-        console.log(date.toDateString()); //показывает дату и месяц с днем недели на ангилийском
-        console.log(date.getDay()); //показывает текущий день недели от 1 до 7
+        if (date.getDay() == 4 && date.getHours() <= 23 || date.getDay() < 4 || date.getDay() > 5) {
+            session.userData.deldate = 'ближайшую пятницу';
+        } else {
+            session.userData.deldate = 'следующую пятницу';
+        }
         next();
     },
     function (session) {
         session.send('Мы привезем ваш заказ в ' + session.userData.deldate + '!');
-        builder.Prompts.choice(session, 'Подтвердите получение заказа', ['ПОЛУЧИЛ!!! =)'])
+        builder.Prompts.choice(session, 'Подтвердите получение заказов', ['Подтвердить', 'Заказать еще'])
     },
     function (session, results) {
         session.userData.orderarrived = results.response.entity;
-        if (results.response.entity == 'ПОЛУЧИЛ!!! =)') {
-            builder.Prompts.number(session, 'Введите свой пароль для подтверждения получения заказа.');
+        if (results.response.entity == 'Подтвердить') {
+            session.beginDialog('/delivery_confirmation');
+        } else {
+            session.beginDialog('/');
         }
+    }
+]);//ORDER COMMENT
+
+bot.dialog('/delivery_confirmation', [
+    function (session) {
+        builder.Prompts.number(session, 'Введите свой пароль для подтверждения получения заказа.');
     },
     function (session, results) {
         session.userData.pin = results.response;
@@ -1391,6 +1401,9 @@ bot.dialog('/success/arrived', [
                 if(err.code === 'INCORRECT_PASSWORD') {
                     session.send('Неверный пин-код.');
                     session.beginDialog('/success/arrived');
+                } else if (err.code === 'USER_NOT_FOUND') {
+                    session.send('К сожалению ваша учетная запись не найдена.');
+                    session.beginDialog('/');
                 }
             } else {
                 Orders.findById(session.userData.currentorder, function (err, order) {
@@ -1403,8 +1416,8 @@ bot.dialog('/success/arrived', [
                             }
                             console.log('ORDER CLOSED. Status updated for: ' + order.id);
                             session.send('Огромное спасибо за подтверждение! Ваш заказ №: ' + order.id + ' закрыт. Наслаждайтесь нашей продукцией)');
-                            //builder.Prompts.choice(session, 'Что бы вы хотели сделать? =)', ['Заказать еще!', 'Посмотреть историю заказов']);
-                            session.endConversation();
+                            session.beginDialog('/success/arrived');
+                            //session.endConversation();
                         });
                     } else {
                         session.send('Нет активных заказов');
@@ -1414,15 +1427,7 @@ bot.dialog('/success/arrived', [
             }
         });
     }
-    // function (session, results) {
-    //     if (results.response.index == 0) {
-    //         session.beginDialog('/');
-    //     } else {
-    //         session.userData.utility = 1;
-    //         session.beginDialog('/client/history');
-    //     }
-    // }
-]);//ORDER COMMENT
+]);//DELIVERY CONFIRMATION
 
 bot.dialog('/info', [
     function (session) {
