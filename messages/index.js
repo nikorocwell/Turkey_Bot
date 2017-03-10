@@ -1390,8 +1390,8 @@ bot.dialog('/success/arrived', [
             session.beginDialog('/delivery_confirmation');
         } else {
             session.userData.order_more = 1;
-            //session.endConversation();
-            session.beginDialog('/');
+            session.endConversation();
+            //session.beginDialog('/');
         }
     }
 ]);//ORDER COMMENT
@@ -1413,16 +1413,16 @@ bot.dialog('/delivery_confirmation', [
                 }
             } else {
                 Orders.findAllbyClientId(session.message.address.user.id, function (err, orders) {
-                    if (!err) {
+                    if (!err && orders) {
                         session.userData.unconf_orders = [];
                         for (var i = 0; i < orders.length; i++) {
                             session.userData.unconf_orders.push(orders[i].id);
                         }
-                        if (!session.userData.unconf_orders) {
-                            builder.Prompts.choice(session, 'Выберите заказ для подтверждения получения', session.userData.unconf_orders);
-                        } else {
+                        if (session.userData.unconf_orders.length == 0) {
                             session.send('Нет активных заказов');
                             session.beginDialog('/success/arrived');
+                        } else {
+                            builder.Prompts.choice(session, 'Выберите заказ для подтверждения получения', session.userData.unconf_orders);
                         }
                     }
                 });
