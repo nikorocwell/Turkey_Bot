@@ -54,6 +54,15 @@ var orderSchema = new Schema({
  * Static method for find session address by id
  * @returns {function} - the Error if session wasn't found or another error occured. Otherwise return session address document or fields of projection
  */
+
+orderSchema.statics.findAllbyClientId = function (clientid, cb) {
+    return this.find({ "clientinfo.id" : clientid, "status" : "CONFIRMED_PAYED", "isactive" : true, "isdeleted" : false}, function (err, orders) {
+        if (err) cb(err);
+        else if (!orders) cb(new Error('Orders not found!'));
+        else cb(null, orders);
+    });
+};
+
 orderSchema.statics.findById = function (id, fields, cb) {
     if (id == null || id == undefined) throw new SyntaxError('Not specified order id');
     else if (typeof fields === 'function') {

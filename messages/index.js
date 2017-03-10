@@ -22,7 +22,7 @@ var jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
-var useEmulator = false;// (process.env.NODE_ENV = 'development');
+var useEmulator = true;// (process.env.NODE_ENV = 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
@@ -791,6 +791,8 @@ bot.dialog('/client/check', [
         Users.findByUserId(session.message.address.user.id, function (err) {
             if (err) {
                 session.beginDialog('/client/add');
+            } else if (session.userData.order_more == 1) {
+                session.endDialogWithResult();
             } else {
                 Orders.findConfirmedAndPayed(session.message.address.user.id, function (err, order) {
                     if (err) {
@@ -1385,6 +1387,7 @@ bot.dialog('/success/arrived', [
         if (results.response.entity == 'Подтвердить') {
             session.beginDialog('/delivery_confirmation');
         } else {
+            session.userData.order_more = 1;
             session.beginDialog('/');
         }
     }
@@ -1406,24 +1409,36 @@ bot.dialog('/delivery_confirmation', [
                     session.beginDialog('/');
                 }
             } else {
-                Orders.findById(session.userData.currentorder, function (err, order) {
-                    if (order.status == 'CONFIRMED_PAYED') {
-                        order.status = 'CLOSED';
-                        order.isactive = false;
-                        order.save(function (err, order) {
-                            if (err) {
-                                console.error(err);
-                            }
-                            console.log('ORDER CLOSED. Status updated for: ' + order.id);
-                            session.send('Огромное спасибо за подтверждение! Ваш заказ №: ' + order.id + ' закрыт. Наслаждайтесь нашей продукцией)');
-                            session.beginDialog('/success/arrived');
-                            //session.endConversation();
-                        });
-                    } else {
-                        session.send('Нет активных заказов');
+                Orders.findAllbyClientId(session.message.address.user.id, function (err, orders) {
+                    if (!err && orders) {
+                        session.userData.unconf_orders = [];
+                        for (var i = 0; i < orders.length; i++) {
+                            session.userData.unconf_orders.push(orders[i].id);
+
+                        }
+                        builder.Prompts.choice(session, 'Выберите заказ для подтверждения получения', session.userData.unconf_orders);
                     }
                 });
-                //builder.Prompts.choice(session, 'Что бы вы хотели сделать? =)', ['Заказать еще!', 'Посмотреть историю заказов']);
+            }
+        });
+    },
+    function (session, results) {
+        session.userData.order_to_confirm = results.response.entity;
+        Orders.findById(session.userData.order_to_confirm, function (err, order) {
+            if (order.status == 'CONFIRMED_PAYED') {
+                order.status = 'CLOSED';
+                order.isactive = false;
+                order.save(function (err, order) {
+                    if (err) {
+                        console.error(err);
+                    }
+                    console.log('ORDER CLOSED. Status updated for: ' + order.id);
+                    session.send('Огромное спасибо за подтверждение! Ваш заказ №: ' + order.id + ' закрыт. Наслаждайтесь нашей продукцией)');
+                    session.beginDialog('/success/arrived');
+                });
+            } else {
+                session.send('Нет активных заказов');
+                session.beginDialog('/success/arrived');
             }
         });
     }
@@ -1662,8 +1677,8 @@ function creteOrderMail(session, order, cb) {
             return;
         }
         // Compile a function // ПРОВЕРКА
-        var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
-        //var fn = jade.compileFile('./orderemail.jade');
+        //var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
+        var fn = jade.compileFile('./orderemail.jade');
 
 
         // Render the function
