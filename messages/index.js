@@ -1243,7 +1243,7 @@ bot.dialog('/clientdata/delivery/shop', [
 bot.dialog('/order/confirmation', [
     function (session) {
         var sum = 0;
-        var date = new Date();
+        var d = new Date();
         function arraySum(array){
             for(var i = 0; i < array.length; i++){
                 sum += array[i];
@@ -1258,7 +1258,7 @@ bot.dialog('/order/confirmation', [
                         session.userData.products.push(products[i].id);
                         session.userData.prices.push(products[i].subtotal);
                         products[i].status = {
-                            date: date.toLocaleString(),
+                            date: d.toLocaleString(),
                             status: 'INORDER_NEW'
                         };
                         products[i].save(function (err, product) {
@@ -1271,7 +1271,7 @@ bot.dialog('/order/confirmation', [
                 }
                 arraySum(session.userData.prices);
                 Orders.add({
-                    id: 'ORD' + date.getTime(),
+                    id: 'ORD' + session.userData.phone + 'D' + d.getFullYear() + (d.getMonth() + 1) + d.getDate() + 'T' + d.getHours() + d.getMinutes() + d.getSeconds(),
                     clientinfo: {
                         id: session.message.address.user.id,
                         phone: session.userData.correctPhone,
@@ -1279,7 +1279,7 @@ bot.dialog('/order/confirmation', [
                         fio: session.userData.fullclientname
                     },
                     status: 'UNCONFIRMED_NEW',
-                    date: date.toLocaleString(),
+                    date: d.toLocaleString(),
                     totalprice: sum,
                     totalamount: sum + session.userData.delcost, // Доставка + стоимости + налоги
                     paymentmethod: 'N/A',
