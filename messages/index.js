@@ -884,29 +884,21 @@ bot.dialog('/order/type', [
         Protos.findAll(function (err, protos) {
             if (!err && protos) {
                 var options = [];
-                var a = 1;
                 session.userData.protos = [];
                 for (var i = 0; i < protos.length; i++) {
                     if (protos[i].isactive) {
-                        options.push('<br>' + (a++) + '\) ' + protos[i].description);
+                        options.push(protos[i].description);
                         session.userData.protos.push(protos[i]);
                     }
                 }
-                //builder.Prompts.choice(session, 'Какую продукцию вы бы хотели заказать?', options);
-                builder.Prompts.number(session, 'Какую продукцию вы бы хотели заказать?<br>Введите число от 1 до ' + session.userData.protos.length + '.' + options);
+                builder.Prompts.choice(session, 'Какую продукцию вы бы хотели заказать?', options);
             }
         });
     },
     function (session, results) {
         session.userData.ordertype = results.response;
-        if (results.response > session.userData.protos.length || results.response == 0) {
-            session.send('К сожалению такого номера варианта в списке нет, выберите вариант от 1 до ' + session.userData.protos.length + '.');
-            session.beginDialog('/order/type');
-        } else {
-            session.userData.prototype = session.userData.protos[(results.response - 1)];
-            //session.userData.prototype = session.userData.protos[results.response.index];
-            session.beginDialog('/order/size');
-        }
+        session.userData.prototype = session.userData.protos[results.response.index];
+        session.beginDialog('/order/size');
     }
 ]);//TYPE
 bot.dialog('/order/size', [
@@ -1279,7 +1271,7 @@ bot.dialog('/order/confirmation', [
                 }
                 arraySum(session.userData.prices);
                 Orders.add({
-                    id: 'ORD' + session.userData.phone + 'D' + d.getFullYear() + (d.getMonth() + 1) + d.getDate() + 'T' + d.getHours() + d.getMinutes() + d.getSeconds(),
+                    id: 'ORD' + session.userData.phone + 'D' + d.getFullYear() + (d.getMonth() + 1) + d.getDate() + 'T' + d.getHours() + d.getMinutes() + d.getSeconds() + 'M' + d.getMilliseconds(),
                     clientinfo: {
                         id: session.message.address.user.id,
                         phone: session.userData.correctPhone,
