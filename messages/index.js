@@ -1390,8 +1390,8 @@ bot.dialog('/success/arrived', [
             session.beginDialog('/delivery_confirmation');
         } else {
             session.userData.order_more = 1;
-            session.endConversation();
-            //session.beginDialog('/');
+            //session.endConversation();
+            session.beginDialog('/');
         }
     }
 ]);//ORDER COMMENT
@@ -1408,7 +1408,7 @@ bot.dialog('/delivery_confirmation', [
                     session.send('Неверный пин-код.');
                     session.beginDialog('/success/arrived');
                 } else if (err.code === 'USER_NOT_FOUND') {
-                    session.send('К сожалению ваша учетная запись не найдена.');
+                    session.send('К сожалению ваша учетная запись не найдена. ');
                     session.beginDialog('/');
                 }
             } else {
