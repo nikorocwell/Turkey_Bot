@@ -22,7 +22,7 @@ var jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 
-var useEmulator = true;// (process.env.NODE_ENV = 'development');
+var useEmulator = false;// (process.env.NODE_ENV = 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
@@ -796,9 +796,11 @@ bot.dialog('/client/check', [
             } else {
                 Orders.findConfirmedAndPayed(session.message.address.user.id, function (err, order) {
                     if (err) {
+                        session.userData.order_more = 0;
                         console.log(err);
                         session.endDialogWithResult();
                     } else {
+                        session.userData.order_more = 0;
                         session.userData.currentorder = order.id;
                         session.send('Требуется подвердить заказ: ' + order.id);
                         session.beginDialog('/success/arrived');
@@ -1388,7 +1390,8 @@ bot.dialog('/success/arrived', [
             session.beginDialog('/delivery_confirmation');
         } else {
             session.userData.order_more = 1;
-            session.beginDialog('/');
+            session.endConversation();
+            //session.beginDialog('/');
         }
     }
 ]);//ORDER COMMENT
@@ -1410,13 +1413,17 @@ bot.dialog('/delivery_confirmation', [
                 }
             } else {
                 Orders.findAllbyClientId(session.message.address.user.id, function (err, orders) {
-                    if (!err && orders) {
+                    if (!err) {
                         session.userData.unconf_orders = [];
                         for (var i = 0; i < orders.length; i++) {
                             session.userData.unconf_orders.push(orders[i].id);
-
                         }
-                        builder.Prompts.choice(session, 'Выберите заказ для подтверждения получения', session.userData.unconf_orders);
+                        if (!session.userData.unconf_orders) {
+                            builder.Prompts.choice(session, 'Выберите заказ для подтверждения получения', session.userData.unconf_orders);
+                        } else {
+                            session.send('Нет активных заказов');
+                            session.beginDialog('/success/arrived');
+                        }
                     }
                 });
             }
@@ -1438,7 +1445,7 @@ bot.dialog('/delivery_confirmation', [
                 });
             } else {
                 session.send('Нет активных заказов');
-                session.beginDialog('/success/arrived');
+                session.endConversation();
             }
         });
     }
@@ -1677,8 +1684,8 @@ function creteOrderMail(session, order, cb) {
             return;
         }
         // Compile a function // ПРОВЕРКА
-        //var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
-        var fn = jade.compileFile('./orderemail.jade');
+        var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
+        //var fn = jade.compileFile('./orderemail.jade');
 
 
         // Render the function
