@@ -424,7 +424,7 @@ var defcur = ' руб.';
 // }, function (err, proto) {
 //
 // });
-//
+// //
 // Protos.add({
 //     id: 'OILS01',
 //     description: 'Растительные масла',
@@ -440,7 +440,7 @@ var defcur = ' руб.';
 //     forms: [{
 //             isactive: true,
 //             id: 'grechichnoeoil',
-//             name: 'Гречичное 0.5 л.',
+//             name: 'Горчичное 0.5 л.',
 //             weightmax: 130,
 //             weightmin: 130
 //         },
@@ -461,7 +461,7 @@ var defcur = ' руб.';
 // }, function (err, proto) {
 //
 // });
-//
+// //
 // Protos.add({
 //     id: 'POTATO01',
 //     description: 'Картофель',
@@ -1022,6 +1022,7 @@ bot.dialog('/order/comment', [
             builder.Prompts.text(session, 'Напишите ваши пожелания по заказу.');
         } else {
             //session.endDialogWithResult();
+            session.userData.comment = 'NO_COMMENT';
             session.beginDialog('/clientdata');
         }
     },
@@ -1215,7 +1216,6 @@ bot.dialog('/clientdata/delivery/shop', [
                 var options = []
                 session.userData.optlocs = [];
                 for (var i = 0; i < locations.length; i++) {
-                    var a = i + 1;
                     session.send(locations[i].description + ': ' + locations[i].address);
                     options.push(locations[i].description);
                     session.userData.optlocs.push(locations[i].address);
