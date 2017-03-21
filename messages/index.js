@@ -739,22 +739,22 @@ bot.on('conversationUpdate', function (message) {
                 if (22 >= dh && dh >= 16) {
                     const reply = new builder.Message()
                         .address(message.address)
-                        .text("Добрый Вечер! " + defgreet);
+                        .text("Добрый вечер! " + defgreet);
                     bot.send(reply);
                 } else if (16 >= dh && dh >= 12) {
                     const reply = new builder.Message()
                         .address(message.address)
-                        .text("Добрый День! " + defgreet);
+                        .text("Добрый день! " + defgreet);
                     bot.send(reply);
                 } else if (12 >= dh && dh >= 5) {
                     const reply = new builder.Message()
                         .address(message.address)
-                        .text("Доброе Утро! " + defgreet);
+                        .text("Доброе утро! " + defgreet);
                     bot.send(reply);
                 } else {
                     const reply = new builder.Message()
                         .address(message.address)
-                        .text("Доброй Ночи! " + defgreet);
+                        .text("Доброй ночи! " + defgreet);
                     bot.send(reply);
                 }
             }
@@ -792,10 +792,12 @@ bot.dialog('/client/check', [
             if (err) {
                 session.beginDialog('/client/add');
             } else if (session.userData.order_more == 1) {
+                session.userData.ordernotempty = 0;
                 session.endDialogWithResult();
             } else {
                 Orders.findConfirmedAndPayed(session.message.address.user.id, function (err, order) {
                     if (err) {
+                        session.userData.ordernotempty = 0;
                         session.userData.order_more = 0;
                         console.log(err);
                         session.endDialogWithResult();
@@ -891,14 +893,21 @@ bot.dialog('/order/type', [
                         session.userData.protos.push(protos[i]);
                     }
                 }
+                if (session.userData.possibleback == 1 && session.userData.ordernotempty == 1) {
+                    options.push('Оформить заказ!');
+                }
                 builder.Prompts.choice(session, 'Какую продукцию вы бы хотели заказать?', options);
             }
         });
     },
     function (session, results) {
-        session.userData.ordertype = results.response;
-        session.userData.prototype = session.userData.protos[results.response.index];
-        session.beginDialog('/order/size');
+        if (results.response.entity == 'Оформить заказ!') {
+            session.beginDialog('/order/comment');
+        } else {
+            session.userData.ordertype = results.response;
+            session.userData.prototype = session.userData.protos[results.response.index];
+            session.beginDialog('/order/size');
+        }
     }
 ]);//TYPE
 bot.dialog('/order/size', [
@@ -936,6 +945,7 @@ bot.dialog('/order/size', [
    },
    function (session) {
        if (session.userData.size == 'ВЕРНУТЬСЯ К ВЫБОРУ!') {
+           session.userData.possibleback = 1;
            session.beginDialog('/order/type');
        } else {
            session.beginDialog('/order/add');
@@ -1006,6 +1016,7 @@ bot.dialog('/order/add', [
     },
     function (session, results) {
         if (results.response.entity == 'Да') {
+            session.userData.ordernotempty = 1;
             session.beginDialog('/order/type');
         } else {
             session.beginDialog('/order/comment');
@@ -1389,6 +1400,7 @@ bot.dialog('/success/arrived', [
         if (results.response.entity == 'Подтвердить') {
             session.beginDialog('/delivery_confirmation');
         } else {
+            session.userData.possibleback = 0;
             session.userData.order_more = 1;
             session.endConversation();
             //session.beginDialog('/');
