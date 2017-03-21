@@ -893,7 +893,7 @@ bot.dialog('/order/type', [
                         session.userData.protos.push(protos[i]);
                     }
                 }
-                if (session.userData.possibleback == 1 && session.userData.ordernotempty == 1) {
+                if (session.userData.ordernotempty == 1) {
                     options.push('Оформить заказ!');
                 }
                 builder.Prompts.choice(session, 'Какую продукцию вы бы хотели заказать?', options);
@@ -945,7 +945,6 @@ bot.dialog('/order/size', [
    },
    function (session) {
        if (session.userData.size == 'ВЕРНУТЬСЯ К ВЫБОРУ!') {
-           session.userData.possibleback = 1;
            session.beginDialog('/order/type');
        } else {
            session.beginDialog('/order/add');
@@ -1400,7 +1399,6 @@ bot.dialog('/success/arrived', [
         if (results.response.entity == 'Подтвердить') {
             session.beginDialog('/delivery_confirmation');
         } else {
-            session.userData.possibleback = 0;
             session.userData.order_more = 1;
             session.endConversation();
             //session.beginDialog('/');
@@ -1697,7 +1695,7 @@ function creteOrderMail(session, order, cb) {
         }
         // Compile a function // ПРОВЕРКА
         var fn = jade.compileFile('D:/home/site/wwwroot/messages/orderemail.jade');
-        //var fn = jade.compileFile('./orderemail.jade');
+        // var fn = jade.compileFile('./orderemail.jade');
 
 
         // Render the function
