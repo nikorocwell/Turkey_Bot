@@ -1374,6 +1374,7 @@ bot.dialog('/success', [
                 });
                 creteOrderMail(session, order, function (err, html) {
                     if (err) {
+                        session.send('В процессе отправки сообщения на электронную почту произошла ошибка. Свяжитесь с нами по телефону +7 (985) 763-41-87 для подтверждения заказа. Приносим извинения за предоставленные неудобства.');
                         console.log(err);
                     } else {
                         session.beginDialog('/success/arrived');
