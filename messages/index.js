@@ -35,8 +35,8 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 var transporter 		= nodemailer.createTransport({
     host: 'smtp.mailgun.org',
     auth: {
-        user: 'postmaster@mg.rega.site',
-        pass: '188e671fd3539ccf39677c8ac19ead99'
+        user: process.env['MailServerLogin'],
+        pass: process.env['MailServerKey']
     }
 });
 //setup e-mail data with unicode symbols
@@ -52,7 +52,7 @@ var mailOptions 		= {
 };
 
 var googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyA8qM5dkO51c4StRFPhVcQ6RpvDIHcbK5A'
+    key: process.env['googleMapsClientKey']
 });
 // googleMapsClient.geocode({
 //     address: 'Яскино 9',
@@ -893,6 +893,9 @@ bot.dialog('/order/type', [
                         session.userData.protos.push(protos[i]);
                     }
                 }
+                // if (session.userData.possibleback == 1 && session.userData.ordernotempty == 1) {
+                //     options.push('Оформить заказ!');
+                // }
                 if (session.userData.ordernotempty == 1) {
                     options.push('Оформить заказ!');
                 }
@@ -945,6 +948,7 @@ bot.dialog('/order/size', [
    },
    function (session) {
        if (session.userData.size == 'ВЕРНУТЬСЯ К ВЫБОРУ!') {
+           session.userData.possibleback = 1;
            session.beginDialog('/order/type');
        } else {
            session.beginDialog('/order/add');
@@ -1399,6 +1403,7 @@ bot.dialog('/success/arrived', [
         if (results.response.entity == 'Подтвердить') {
             session.beginDialog('/delivery_confirmation');
         } else {
+            session.userData.possibleback = 0;
             session.userData.order_more = 1;
             session.endConversation();
             //session.beginDialog('/');
