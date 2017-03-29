@@ -30,7 +30,14 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
     stateEndpoint: process.env['BotStateEndpoint'],
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
-
+config.db = {
+    "url": process.env['dbUrl'],
+    "options": {
+        "user": process.env['dbLog'],
+        "pass": process.env['dbPass'],
+        "SSL":true
+    }
+};
 //create reusable transporter object using SMTP transport
 var transporter 		= nodemailer.createTransport({
     host: 'smtp.mailgun.org',
