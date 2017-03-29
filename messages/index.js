@@ -35,8 +35,8 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 var transporter 		= nodemailer.createTransport({
     host: 'smtp.mailgun.org',
     auth: {
-        user: process.env.MailServerLogin,
-        pass: process.env.MailServerKey
+        user: process.env['MailServerLogin'],
+        pass: process.env['MailServerKey']
     }
 });
 //setup e-mail data with unicode symbols
