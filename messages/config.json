@@ -17,11 +17,11 @@
 		}
 	},
 	"db": {
-		"url": "",
+		"url": "mongodb://rega:fvVIoXATwamyHNFwqy33SLROxF7aNLy2QxQwz164V0k8j0jj94ERhXquWUUn8tm2jguTa28UaDsfLAKM2BHygA==@rega.documents.azure.com:10250/turkey_db?ssl=true",
 		"options": {
-			"user": "",
-			"pass": "",
-			"SSL": true
+			"user": "rega",
+			"pass": "fvVIoXATwamyHNFwqy33SLROxF7aNLy2QxQwz164V0k8j0jj94ERhXquWUUn8tm2jguTa28UaDsfLAKM2BHygA==",
+			"SSL":true
 		}
 	},
 	"azure_storage": {
