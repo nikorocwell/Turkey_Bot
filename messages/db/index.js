@@ -11,7 +11,13 @@ require('./locations');
 require('./product');
 require('./order');
 
-mongoose.connect(config.db.url, config.db.options);
+var options = {
+    "user": process.env['dbLog'],
+    "pass": process.env['dbPass'],
+    "SSL":true
+};
+
+mongoose.connect(process.env['dbUrl'], options);
 
 var db = mongoose.connection;
 db.on('error', function (err) {
