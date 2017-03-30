@@ -13,7 +13,7 @@ module.exports.getAccessToken = function(clientId, code, redirectURI, clientSecr
  */
 module.exports.buildTokenUrl = function (sessionId) {
 	let redirectURI = `${config.yandexAPI.redirectURI}?sessionId=${sessionId}`;
-	return yandexMoney.Wallet.buildObtainTokenUrl(config.yandexAPI.clientId, redirectURI, config.yandexAPI.scope);	
+	return yandexMoney.Wallet.buildObtainTokenUrl(process.env['yandexAPIclientId'], redirectURI, config.yandexAPI.scope);
 };
 
 /**

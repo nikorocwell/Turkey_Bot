@@ -714,7 +714,7 @@ function getAccessToken(req, res, next) {
             bot.beginDialog({id:address.id, user:address.user, bot:address.bot, channelId:address.channelId, conversation:address.conversation, serviceUrl:address.serviceUrl},'/yabalance');
         });
     };
-    yandexMoney.getAccessToken(config.yandexAPI.clientId, code, config.yandexAPI.redirectURI, config.yandexAPI.clientSecret, tokenComplete);
+    yandexMoney.getAccessToken(process.env['yandexAPIclientId'], code, config.yandexAPI.redirectURI, process.env['yandexAPIclientSecret'], tokenComplete);
 }
 
 bot.beginDialogAction('beginOrderDialog', '/order');//переход в раздел заказа(корзины)
