@@ -14,7 +14,8 @@
     "jade": "1.11.0",
     "yandex-money-sdk": "0.1.6",
     "nodemailer": "^3.1.4",
-    "@google/maps": "0.3.1"
+    "@google/maps": "0.3.1",
+    "dotenv-extended": "^1.0.4"
   },
   "devDependencies": {
       "restify": "^4.1.1",

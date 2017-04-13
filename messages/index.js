@@ -1,3 +1,4 @@
+require('dotenv-extended').load();
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 
@@ -705,11 +706,6 @@ function getAccessToken(req, res, next) {
             res.status(200);
             res.end();
 
-            // let msg = new builder.Message()
-            //  .address(address)
-            //  .text("Great! U R Autorized...");
-            // bot.send(msg);
-
             console.info('tokenComplete address: ' + JSON.stringify(address));
             bot.beginDialog({id:address.id, user:address.user, bot:address.bot, channelId:address.channelId, conversation:address.conversation, serviceUrl:address.serviceUrl},'/yabalance');
         });
@@ -782,9 +778,6 @@ bot.dialog('/', [
     function (session) {
         session.beginDialog('/clientdata');
     }
-    // function (session) {
-    //     session.endDialog();
-    // }
 ]);//CORE
 bot.dialog('/client/check', [
     function (session) {
@@ -1054,24 +1047,6 @@ bot.dialog('/clientdata', [
             session.beginDialog('/clientdata/email');
         }
     }
-    // function (session) {
-    //     session.beginDialog('/clientdata/phone');
-    // },
-    // function (session) {
-    //     session.beginDialog('/clientdata/email');
-    // },
-    // function (session) {
-    //     session.beginDialog('/clientdata/delivery');
-    // },
-    // function (session) {
-    //     session.beginDialog('/order/confirmation');
-    // },
-    // function (session) {
-    //     session.beginDialog('/clientdata/payment');
-    // },
-    // function (session) {
-    //     session.endDialogWithResult();
-    // }
 ]);//CLIENTDATA MAIN
 bot.dialog('/clientdata/phone', [
     function (session) {
@@ -1125,9 +1100,6 @@ bot.dialog('/clientdata/email', [
             //session.endDialogWithResult();
         }
     },
-    // function (session) {
-    //     builder.Prompts.text(session, 'Напишите адрес вашей электронной почты.')
-    // },
     function (session, results) {
         session.userData.clientmail = results.response;
         session.beginDialog('/clientdata/delivery');
@@ -1493,105 +1465,6 @@ bot.dialog('/refuse', [
         session.endConversation();
     }
 ]);//REFUSE
-
-// bot.dialog('/clientdata/payment', [
-//     function (session) {
-//         builder.Prompts.number(session, "Придумайте ПИН-Код из 4 цифр.");
-//     },
-//     function (session, results) {
-//         session.userData.pin = results.response;
-//
-//         // check if user already in database
-//         Users.authUser(session.message.address.user.id, session.userData.pin, function(err, user) {
-//             if(err) {
-//                 if(err.code === 'USER_NOT_FOUND') {
-//                     // not found add new one
-//                     Users.add(session.message.address.user.id, session.userData.pin, function(err, user) {
-//                         if(err) {
-//                             session.send(err.message);
-//                         }
-//                         else {
-//                             session.send("New user added, need to link Yandex wallet");
-//                             // need to link Yandex wallet to the account
-//                             Sessions.add(session.message.address, function(err, sessionAddress) {
-//                                 if(err) {
-//                                     session.send(err.message);
-//                                 }
-//                                 else {
-//                                     var url = yandexMoney.buildTokenUrl(sessionAddress.id);
-//                                     session.send(url);
-//                                 }
-//                             });
-//                         }
-//                     });
-//                 }
-//                 else {
-//                     if(err.code === 'USER_NOT_AUTHENTICATED') {
-//                         session.send("Old user, need to re-link Yandex wallet");
-//                         // need to link Yandex wallet to the account
-//                         Sessions.add(session.message.address, function(err, sessionAddress) {
-//                             if(err) {
-//                                 session.send(err.message);
-//                             }
-//                             else {
-//                                 var url = yandexMoney.buildTokenUrl(sessionAddress.id);
-//                                 session.send(url);
-//                             }
-//                         });
-//                     }
-//                     else {
-//                         session.send(err.message);
-//                     }
-//                 }
-//             }
-//             else {
-//                 session.send("Autorized");
-//                 session.beginDialog('/yabalance');
-//             }
-//         });
-//     }
-// ]);//PAYMENT MAIN
-// bot.dialog('/yabalance',[
-//     function (session) {
-//         builder.Prompts.choice(session, "Проверить баланс кошелька?", ['ДА', 'НЕТ']);
-//     },
-//     function (session, results) {
-//         if (results.response.entity == 'ДА') {
-//                 yandexMoney.getAccountInfo(session.message.user.id, function(msg, action) {
-//                     session.send(msg);
-//                     session.beginDialog('/yap2p');
-//                 });
-//         } else {
-//             session.beginDialog('/yap2p');
-//         }
-//     }
-// ]);//BALANCE CHECK
-// bot.dialog('/yap2p',[
-//     function (session) {
-//         builder.Prompts.choice(session, "Make a Transfer?", ["yes","no"]);
-//     },
-//     function (session, results) {
-//         if (results.response.entity == 'yes') {
-//             builder.Prompts.number(session, 'Введите номер кошелька')
-//         } else {
-//             session.send("starting over...");
-//             session.beginDialog('/yabalance');
-//         }
-//     },
-//     function (session, results) {
-//         if (results.response) {
-//             var account = results.response.entity;
-//             var amount = 10;
-//             var msg = "Transfer from ReGaBot user " + session.message.user.id;
-//             yandexMoney.p2pPayment(session.message.user.id, account, amount, msg, function(msg, action) {
-//                 session.send(msg);
-//             });
-//         } else {
-//             session.send("Ops, there is no account number, starting over");
-//             session.beginDialog('/');
-//         }
-//     }
-// ]);//P2P TRANSFER
 
 function createStartCard(session) {
     return new builder.HeroCard(session)
